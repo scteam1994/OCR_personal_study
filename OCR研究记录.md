@@ -4,13 +4,14 @@
 
 ### use_dilation=True代表是否使用膨胀操作效果对比如下，上为默认，下为use_dilation=True
 ![default.png](default.png)
-![--use_dilation=True_0.1.png](--use_dilation%3DTrue_0.1.png)
+![--use_dilation=True_0.6.png](--use_dilation%3DTrue_0.6.png)
 ### det_db_box_thresh 代表检测框的阈值，只有置信度大于阈值的检测框才会被保留，效果对比如下，上为0.6，下为0.1
 
 ![default.png](default.png)
 ![det_db_box_thresh_0.1.png](det_db_box_thresh_0.1.png)
 ### 使用`--use_dilation=True`和`det_db_box_thresh=0.1`的效果如下
 ![--use_dilation=True_0.6.png](--use_dilation%3DTrue_0.6.png)
+![--use_dilation=True_0.1.png](--use_dilation%3DTrue_0.1.png)
 值得注意的是，使用pip库paddlocr 或paddleocr repo 中predict_system.py预测结果图中文字是否被检测出来不完全取决于det部分，在post_process方法中如果后续rec部分文字检测的置信度低于drop_score参数，那么图像中该位置的文字框会被舍弃掉。
 
 ### 如果想要直观的看到文字检测的效果，需要使用rec=False参数，这样就不会进行文字识别，而是直接将文字框画在图像上，效果如下
@@ -55,6 +56,8 @@ root@192.168.3.210:/home/dataset/data-1/
 https://github.com/PaddlePaddle/PaddleNLP/blob/develop/model_zoo/ernie-lyout/README.zh.md
 使用ocr全部结果和原始image作为辅助信息，做多模态学习,模型输入与UIE-X相同，但是模型结构不同，使用ernie-lyout模型，使用paddlepaddle框架
 ![2023-07-13 13-34-37屏幕截图.png](2023-07-13%2013-34-37%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png)
+
+#### 修改自定义数据集
 
 
 
