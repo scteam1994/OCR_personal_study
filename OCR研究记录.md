@@ -63,7 +63,9 @@ https://github.com/PaddlePaddle/PaddleNLP/blob/develop/model_zoo/ernie-lyout/REA
 
 #### 第一次实验：
 直接使用原始数据，各个类别的数据量如下：
+
 ![2023-07-14 13-12-12屏幕截图.png](2023-07-14%2013-12-12%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png)
+
 检测结果如下：
 invoice: acc: 1.0
 contract: acc: 0.9743589743589743
