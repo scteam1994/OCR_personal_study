@@ -1,6 +1,7 @@
 # OCR研究记录
 ## 参数设置
-所有可修改预测参数在utility.py中的init_args中,在pip库paddleocr中未找到方便入口，可以在paddleocr.py中，手动修改params.{参数}={value}
+所有可修改预测参数在utility.py中的init_args中,在pip库paddleocr中未找到方便入口，可以在paddleocr.py中，手动
+修改params.{参数}={value}
 
 ### use_dilation=True代表是否使用膨胀操作效果对比如下，上为默认，下为use_dilation=True
 ![default.png](default.png)
@@ -57,6 +58,39 @@ https://github.com/PaddlePaddle/PaddleNLP/blob/develop/model_zoo/ernie-lyout/REA
 ![2023-07-13 13-34-37屏幕截图.png](2023-07-13%2013-34-37%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png)
 
 #### 修改自定义数据集
+
+[demo.py](demo.py)
+
+#### 第一次实验：
+直接使用原始数据，各个类别的数据量如下：
+![2023-07-14 13-12-12屏幕截图.png](2023-07-14%2013-12-12%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png)
+检测结果如下：
+invoice: acc: 1.0
+contract: acc: 0.9743589743589743
+bank_receipt: acc: 1.0
+central_unified: acc: 1.0
+image_progress: acc: 0.7
+quantities_valuation: acc: 0.6428571428571429
+statement_accounting_balance: acc: 1.0
+business_license: acc: 0.5
+commercial_housing_sales_ledger: acc: 1.0
+total_output_value_construction_schedule: acc: 1.0
+project_approval_documents: acc: 0.4
+document_filing: acc: 0.0
+site_construction_photos: acc: 0.9411764705882353
+equipment_in_place_photo: acc: 0.375
+project_site_verification_form: acc: 0.0
+organization_code_certificate: acc: 0.5
+public_institution_legal_person_certificate: acc: 0.0
+state_owned_land_use_right_certificate: acc: 1.0
+construction_land_use_permit: acc: 1.0
+other: acc: 0.9365079365079365
+average acc: 0.95
+
+#### 第二次实验：
+策略调整，将数据量较多的类别的数据量减少到300，各个类别的数据量如下：
+
+
 
 
 
