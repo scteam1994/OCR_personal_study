@@ -1,0 +1,41 @@
+invoice: acc: 1.0
+
+contract: acc: 0.9743589743589743
+
+bank_receipt: acc: 1.0
+
+central_unified: acc: 1.0
+
+image_progress: acc: 0.7
+
+quantities_valuation: acc: 0.6428571428571429
+
+statement_accounting_balance: acc: 1.0
+
+business_license: acc: 0.5
+
+commercial_housing_sales_ledger: acc: 1.0
+
+total_output_value_construction_schedule: acc: 1.0
+
+project_approval_documents: acc: 0.4
+
+document_filing: acc: 0.0
+
+site_construction_photos: acc: 0.9411764705882353
+
+equipment_in_place_photo: acc: 0.375
+
+project_site_verification_form: acc: 0.0
+
+organization_code_certificate: acc: 0.5
+
+public_institution_legal_person_certificate: acc: 0.0
+
+state_owned_land_use_right_certificate: acc: 1.0
+
+construction_land_use_permit: acc: 1.0
+
+other: acc: 0.9365079365079365
+
+average acc: 0.95
