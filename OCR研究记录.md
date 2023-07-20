@@ -90,7 +90,7 @@ paddlenlp/trainer/layout_trainer.py line:66中修改metrics没有用，会在返
 
 paddlenlp\taskflow\document_intelligence.py 中line:178开始加入：
 ```
- bboxes = []
+                        bboxes = []
                         for pred in preds:
                             start = pred["start"]
                             end = pred["end"]
