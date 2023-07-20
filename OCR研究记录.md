@@ -84,4 +84,24 @@ paddlenlp/trainer/layout_trainer.py line:66中修改metrics没有用，会在返
 发现other类无法分类，准备进行第三次实验删除other类
 
 
+# 智慧文档（IE）记录
 
+##使Taskflow("document_intelligence")返回文本对应box值
+
+paddlenlp\taskflow\document_intelligence.py 中line:178开始加入：
+```
+ bboxes = []
+                        for pred in preds:
+                            start = pred["start"]
+                            end = pred["end"]
+                            boxes = example.ori_boxes[start:end + 1]
+                            # combine boxes
+                            if len(boxes) > 1:
+                                box_x1 = min([boxes[i][0].left for i in range(len(boxes))])
+                                box_y1 = min([boxes[i][0].top for i in range(len(boxes))])
+                                box_x2 = max([boxes[i][0].right for i in range(len(boxes))])
+                                box_y2 = max([boxes[i][0].bottom for i in range(len(boxes))])
+                            bboxes.append([box_x1, box_y1, box_x2, box_y2])
+
+                    all_predictions.append({"prompt": example_query, "result": preds,"bbox":bboxes})
+```
