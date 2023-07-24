@@ -143,6 +143,8 @@ max_seq_len在paddlenlp\taskflow\information_extraction.py： line 665中可以�
 在训练过程中，可以使用visualdl工具查看训练过程中的loss,f1变化情况，具体操作如下:
 在命令行中输入`visualdl --logdir {logdir}` ,logdir中可方加入多个log文件，然后在浏览器中输入`http://localhost:8040/` 即可查看训练过程中的loss,f1变化情况
 
+## eval
+在 PaddleNLP\paddlenlp\utils\ie_utils.py line：131 compute_metrics方法中修改metric可以生效，其中start_prob, end_prob同[上](###position_prob参数)所述
 # 图像分类研究记录
 ## 纯图像分类方案
 ## UIE-base 图像加ocr结果分类方案
@@ -186,6 +188,11 @@ paddlenlp/trainer/layout_trainer.py line:66中修改metrics没有用，会在返
 [metrics_2.txt](asset/metrics_2.txt)
 
 发现other类无法分类，准备进行第三次实验删除other类
+
+#### 第三次实验：
+
+[metrics_3.txt](asset/metrics_3.txt)
+
 
 
 # 智慧文档（IE）记录
