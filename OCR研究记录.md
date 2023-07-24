@@ -122,6 +122,7 @@ class VQASerTokenMetric(object):
 # UIE研究记录
 
 ## UIE流程
+### max_seq_len参数
 Taskflow("information_extraction", schema=[""], model="uie-x-base", layout_analysis=True,
                    max_seq_len=1024)
 max_seq_len在paddlenlp\taskflow\information_extraction.py： line 665中可以看到max_predict_len = self._max_seq_len - len(max(prompts)) - self._summary_token_num，超过max_predict_len的文本会被分割成多份，影响max_predict_len的一个是self._max_seq_len参数，一个是最大prompts长度，一个是self._summary_token_num，self._summary_token_num在uie-x中为4.
@@ -143,7 +144,8 @@ max_seq_len在paddlenlp\taskflow\information_extraction.py： line 665中可以�
 在命令行中输入`visualdl --logdir {logdir}` ,logdir中可方加入多个log文件，然后在浏览器中输入`http://localhost:8040/` 即可查看训练过程中的loss,f1变化情况
 
 # 图像分类研究记录
-拟采用tensorflow自写模型 
+## 纯图像分类方案
+## UIE-base 图像加ocr结果分类方案
 
 ## 拉数据
 root@192.168.3.210
