@@ -32,10 +32,112 @@
 预计需要数据集中有50k左右个预测框，标注框所有文字
 ## 图像超分研究记录
  todo
+
+# KIE研究记录
+## 修改metrics：
+
+在anaconda3\envs\paddle\Lib\site-packages\seqeval\metrics\sequence_labeling.py :line 116
+中可以看到，默认计算p，r，f1时按首字母排序target_names = sorted(set(entities_true.keys()) | set(entities_pred.keys()))
+
+目前修改C:\Users\topnet\PycharmProjects\pythonProject\ppocr\metrics\vqa_token_ser_metric.py line 69 中get_metric(self)方法
+ ```python
+class VQASerTokenMetric(object):
+    def __init__(self, main_indicator='hmean', **kwargs):
+        self.main_indicator = main_indicator
+        self.reset()
+        self.important_code = [
+                                'title',
+                                'no_value',
+                                'code_value',
+                                'date_value',
+                                'check_code_value',
+                                'machine_code_value',
+                                'name_value',
+                                'uscc_value',
+                                'address_value',
+                                'bank_value',
+                                'password_value',
+                                'item_value',
+                                'commodity_type_value',
+                                'unit_value',
+                                'num_value',
+                                'price_value',
+                                'amount_value',
+                                'tax_rate_value',
+                                'tax_amount_value',
+                                'total_tax_value',
+                                'total_amount_value',
+                                'lower_amount_value',
+                                'upper_amount_value',
+                                'seller_name_value',
+                                'seller_uscc_value',
+                                'seller_addr_value',
+                                'seller_bank_value',
+                                'payee_value',
+                                'checker_value',
+                                'drawer_value',
+                                'remark_value'
+                                ]
+        self.very_important_code = ['seller_name_value','name_value','date_value']
+
+    def __call__(self, preds, batch, **kwargs):
+        preds, labels = preds
+        self.pred_list.extend(preds)
+        self.gt_list.extend(labels)
+
+    def get_metric(self):
+        from seqeval.metrics import f1_score, precision_score, recall_score
+        metrics = {}
+        names = sorted(set(self.important_code))
+        p = precision_score(self.gt_list, self.pred_list, average=None)
+        r = recall_score(self.gt_list, self.pred_list, average=None)
+        f1 = f1_score(self.gt_list, self.pred_list, average=None)
+        metrics['avr_f1'] = np.mean(f1)
+        metrics['avr_p'] = np.mean(p)
+        metrics['avr_r'] = np.mean(r)
+        vip_p = []
+        vip_r = []
+        vip_f1 = []
+        for i in range(len(self.very_important_code)):
+            vip_p.append(p[names.index(self.very_important_code[i])])
+            vip_r.append(r[names.index(self.very_important_code[i])])
+            vip_f1.append(f1[names.index(self.very_important_code[i])])
+        metrics['vip_avr_f1'] = np.mean(vip_f1)
+        metrics['vip_avr_p'] = np.mean(vip_p)
+        metrics['vip_avr_r'] = np.mean(vip_r)
+
+        for i in range(len(names)):
+            metrics[f'{names[i]}_f1'] = f1[i]
+            metrics[f'{names[i]}_p'] = p[i]
+            metrics[f'{names[i]}_r'] = r[i]
+
+        self.reset()
+        return metrics
+
+    def reset(self):
+        self.pred_list = []
+        self.gt_list = []
+ ```
+
 # UIE研究记录
 
 ## UIE流程
+Taskflow("information_extraction", schema=[""], model="uie-x-base", layout_analysis=True,
+                   max_seq_len=1024)
+max_seq_len在paddlenlp\taskflow\information_extraction.py： line 665中可以看到max_predict_len = self._max_seq_len - len(max(prompts)) - self._summary_token_num，超过max_predict_len的文本会被分割成多份，影响max_predict_len的一个是self._max_seq_len参数，一个是最大prompts长度，一个是self._summary_token_num，self._summary_token_num在uie-x中为4.
 
+输入有6个，其内容为：
+1：所有token input_ids
+2：token_type_ids
+3：token序号 pos_ids
+4：有效标记 att_mask
+5：token对应框 bbox
+6：原图resize到224，224 image
+输出为
+7：标签 offset_maps
+
+### position_prob参数
+在PaddleNLP\paddlenlp\taskflow\information_extraction.py ：line1009中看到模型直接输出是一个start_prob：list和end_prob:list,取两个list中大于position_prob的点作为开始和结束点在所有token中截取输出文本。
 ## 训练结果可视化
 在训练过程中，可以使用visualdl工具查看训练过程中的loss,f1变化情况，具体操作如下:
 在命令行中输入`visualdl --logdir {logdir}` ,logdir中可方加入多个log文件，然后在浏览器中输入`http://localhost:8040/` 即可查看训练过程中的loss,f1变化情况
