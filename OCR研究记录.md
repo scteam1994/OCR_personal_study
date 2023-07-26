@@ -174,6 +174,32 @@ paddlenlp/trainer/trainer.py line:1690，paddle.get_rng_state() ->paddle.get_cud
 #### 修改metrics
 paddlenlp/trainer/layout_trainer.py line:66中修改metrics没有用，会在返回的时候丢弃所有self.metrics的内容.
 因此需要直接修改metrics，metrics变量为字典类型，可以自定义metrics计算方法。
+
+ ```python
+label_dict = {
+    "invoice": 0,
+    "contract": 1,
+    "bank_receipt": 2,
+    "central_unified": 3,
+    "image_progress": 4,
+    "quantities_valuation": 5,
+    "statement_accounting_balance": 6,
+    "business_license": 7,
+    "commercial_housing_sales_ledger": 8,
+    "total_output_value_construction_schedule": 9,
+    "project_approval_documents": 10,
+    "document_filing": 11,
+    "site_construction_photos": 12,
+    "equipment_in_place_photo": 13,
+    "project_site_verification_form": 14,
+    "organization_code_certificate": 15,
+    "public_institution_legal_person_certificate": 16,
+    "construction_permit_for_construction_project": 17,
+    "state_owned_land_use_right_certificate": 18,
+    "construction_land_use_permit": 19,
+    "other": 20,
+}
+ ```
 #### 第一次实验：
 直接使用原始数据，各个类别的数据量如下：
 
