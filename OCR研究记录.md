@@ -39,7 +39,7 @@
 在anaconda3\envs\paddle\Lib\site-packages\seqeval\metrics\sequence_labeling.py :line 116
 中可以看到，默认计算p，r，f1时按首字母排序target_names = sorted(set(entities_true.keys()) | set(entities_pred.keys()))
 
-目前修改C:\Users\topnet\PycharmProjects\pythonProject\ppocr\metrics\vqa_token_ser_metric.py line 69 中get_metric(self)方法
+目前修改ppocr\metrics\vqa_token_ser_metric.py line 69 中get_metric(self)方法
  ```python
 class VQASerTokenMetric(object):
     def __init__(self, main_indicator='hmean', **kwargs):
