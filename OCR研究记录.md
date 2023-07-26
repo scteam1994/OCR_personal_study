@@ -174,7 +174,6 @@ paddlenlp/trainer/trainer.py line:1690，paddle.get_rng_state() ->paddle.get_cud
 #### 修改metrics
 paddlenlp/trainer/layout_trainer.py line:66中修改metrics没有用，会在返回的时候丢弃所有self.metrics的内容.
 因此需要直接修改metrics，metrics变量为字典类型，可以自定义metrics计算方法。
-
  ```python
 label_dict = {
     "invoice": 0,
